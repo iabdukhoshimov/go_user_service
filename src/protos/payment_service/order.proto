@@ -1,0 +1,22 @@
+syntax="proto3";
+
+package payments;
+option go_package="genproto/payment_service";
+
+service OrderService {
+    rpc Create (CreatePurchaseRequest) returns (CreatePurchaseResponse) {};
+}
+
+message CreatePurchaseRequest {
+    string user_id = 1;
+    string product_id = 2;
+    int32 price = 3;
+    string product_type = 4;
+    string status = 5;
+}
+
+message CreatePurchaseResponse {
+    string user_id = 1;
+    string product_id = 2;
+    string id = 3;
+}

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  {{- if .Values.service.annotations }}
+  annotations:
+  {{- range $key, $value := .Values.service.annotations }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+  {{- end }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  ports:
+    {{- range $spec := .Values.service.specs }}
+    - name: {{ $spec.name }}
+      port: {{ $spec.port }}
+      protocol: {{ $spec.protocol | default "TCP" }}
+      {{- if $spec.targetPort }}
+      targetPort: {{ $spec.targetPort }}
+      {{- end}}
+      {{- if  $spec.nodePort }}
+      nodePort: {{  $spec.nodePort }}
+      {{- end }}
+    {{- end -}}

@@ -1,0 +1,31 @@
+syntax="proto3";
+
+package payments;
+option go_package="genproto/payment_service";
+
+service PaymeService {
+    rpc GeneratePaymeLink(PaymeLinkRequest) returns (PaymeLinkResponse){}
+    rpc GeneratePaymeLinkSvod(PaymeLinkRequestSvod) returns (PaymeLinkResponse){}
+}
+
+message PaymeLinkRequest {
+    string order_id = 1;
+    int32 price = 2; 
+    string product_id = 3;
+    string product_type = 4;
+    string lang = 5;
+    string redirect_url = 6;
+}
+
+message PaymeLinkResponse {
+    string link = 1;
+}
+
+message PaymeLinkRequestSvod {
+    string purchase_id = 1;
+    int32 amount = 2; 
+    string movie_key = 3;
+    string path_key = 4;
+    string lang = 5;
+    string redirect_url = 6;
+}

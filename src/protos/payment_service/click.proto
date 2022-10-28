@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package payments;
+option go_package="genproto/payment_service";
+
+service ClickService {
+    rpc GenerateClickLink(ClickLinkRequest) returns (ClickLinkResponse){}
+}
+
+message ClickLinkRequest {
+    string subscription_id = 1;
+    repeated string keys = 2;
+    int32 amount = 3;
+}
+
+message ClickLinkResponse {
+    string link = 1;
+}
